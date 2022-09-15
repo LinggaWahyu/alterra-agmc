@@ -4,28 +4,17 @@ import (
 	"alterra-agmc-day-3/constants"
 	"alterra-agmc-day-3/controllers"
 	m "alterra-agmc-day-3/middlewares"
-	"net/http"
+	"alterra-agmc-day-3/util"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
-
-type CustomValidator struct {
-	validator *validator.Validate
-}
-
-func (cv *CustomValidator) Validate(i interface{}) error {
-	if err := cv.validator.Struct(i); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	return nil
-}
 
 func New() *echo.Echo {
 	e := echo.New()
 
-	e.Validator = &CustomValidator{validator: validator.New()}
+	e.Validator = &util.CustomValidator{Validator: validator.New()}
 
 	m.LogMiddlewares(e)
 

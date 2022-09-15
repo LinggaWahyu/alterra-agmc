@@ -6,7 +6,7 @@ import (
 	"alterra-agmc-day-3/constants"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 func CreateToken(userId int) (string, error) {
