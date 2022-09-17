@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/labstack/echo/v4"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestLogMiddlewares(t *testing.T) {
@@ -18,4 +19,7 @@ func TestLogMiddlewares(t *testing.T) {
 	e.NewContext(req, rec)
 
 	LogMiddlewares(e)
+
+	assert.NotEmpty(t, e)
+	assert.NotNil(t, e)
 }
