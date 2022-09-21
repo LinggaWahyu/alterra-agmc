@@ -29,6 +29,9 @@ func (s *service) Login(ctx context.Context, payload *dto.AuthLoginRequest) (*dt
 	var result *dto.AuthLoginResponse
 
 	data, err := s.Repository.FindByEmail(ctx, &payload.Email)
+	fmt.Println(data)
+	fmt.Println(payload.Password)
+	fmt.Println(data.Password)
 	if data == nil {
 		return result, res.ErrorBuilder(&res.ErrorConstant.EmailOrPasswordIncorrect, err)
 	}
@@ -62,7 +65,7 @@ func (s *service) Register(ctx context.Context, payload *dto.AuthRegisterRequest
 	var user = model.User{
 		Name:     payload.Name,
 		Email:    payload.Email,
-		Password: string(password_hashed),
+		Password: password_hashed,
 	}
 
 	err = s.Repository.Create(ctx, user)
