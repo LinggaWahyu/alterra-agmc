@@ -29,9 +29,6 @@ func (s *service) Login(ctx context.Context, payload *dto.AuthLoginRequest) (*dt
 	var result *dto.AuthLoginResponse
 
 	data, err := s.Repository.FindByEmail(ctx, &payload.Email)
-	fmt.Println(data)
-	fmt.Println(payload.Password)
-	fmt.Println(data.Password)
 	if data == nil {
 		return result, res.ErrorBuilder(&res.ErrorConstant.EmailOrPasswordIncorrect, err)
 	}
