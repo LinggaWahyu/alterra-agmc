@@ -55,6 +55,7 @@ to use this flag:
 	middleware.Init(e)
 	http.NewHttp(e, f)
 
-	e.Logger.Fatal(e.Start(":" + os.Getenv("APP_PORT")))
+	port := os.Getenv("SERVER_PORT")
+	e.Logger.Fatal(e.Start(":" + port))
 
 }
