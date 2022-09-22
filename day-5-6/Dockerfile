@@ -18,4 +18,6 @@ COPY .env* .
 
 EXPOSE 8080
 
+CMD ["./go-api","-migrate=migrate"]
+
 ENTRYPOINT ["./go-api"]
