@@ -34,7 +34,7 @@ func (s *service) Login(ctx context.Context, payload *dto.AuthLoginRequest) (*dt
 	}
 
 	err = CheckPassword(payload.Password, data.Password)
-	if err != nil {
+	if err == nil {
 		return result, res.ErrorBuilder(&res.ErrorConstant.EmailOrPasswordIncorrect, err)
 	}
 
