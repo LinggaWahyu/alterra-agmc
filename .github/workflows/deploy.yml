@@ -1,23 +1,30 @@
-name: Deploy to AWS
+name: CI/CD counter app
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ master ]
 
 jobs:
-  deploy:
-    needs: build
+#First we will see the application build or not , then we will deploy in EC2
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
-    - name: Deploy to EC2
-      env:
-        PRIVATE_KEY: ${ { secrets.EC2_SSH_KEY }}
-        HOSTNAME: ${ { secrets.HOST_DNS }}
-        USER_NAME: ${ { secrets.USERNAME }}
-        TARGET: ${ { secrets.TARGET_DIR }}
-      run: |
+
+  Deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
+            HOSTNAME : ${{ secrets.HOST_DNS  }}
+            USER_NAME : ${{ secrets.USERNAME  }}
+            
+        run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
           
@@ -26,4 +33,4 @@ jobs:
             git checkout master &&
             git fetch --all &&
             git reset --hard origin/master &&
-            git pull origin master &&
+            git pull origin master
