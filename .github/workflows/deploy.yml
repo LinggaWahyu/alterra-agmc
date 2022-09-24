@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-#First we will see the application build or not , then we will deploy in EC2
+
   build:
     runs-on: ubuntu-latest
     
