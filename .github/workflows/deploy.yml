@@ -29,4 +29,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
           
             #Now we have got the access of EC2 and we will start the deploy .
-            ls
+            git pull origin master
